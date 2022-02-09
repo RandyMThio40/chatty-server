@@ -4,13 +4,58 @@ const { Server } = require("socket.io");
 
 const app = express();
 const httpServer = createServer(app);
+const cors = require('cors');
+const { default: axios } = require("axios");
 const io = new Server(httpServer, { 
     cors:{ 
         origin: "http://localhost:3000",
-        methods: ["GET","POST"]
+        methods: ["GET","POST"],
+        credentials:true,
+
 }});
 
+app.use(
+    cors({
+        origin: "http://localhost:3000",
+        methods: ["GET","POST"],
+        credentials:true,
+    })
+)
+app.use(express.json()); 
 
+const doesImgExist = async (url) => {
+    try{
+        const res = await axios.get(url,{responseType:'arraybuffer'});
+        if(res.status == 200){
+            return res.data;
+        }
+
+    }catch(err){
+        console.log("err1: ", err);
+    }
+
+
+}
+
+app.post("/findImg",async(req,res)=>{
+    console.log("req: ", req.body);
+    let img_url = req.body?.url
+    let data = await doesImgExist(img_url);
+    if(data){
+        res.json({
+            buffer:data,
+            status:1,
+        })
+    }
+    else{
+        res.json({
+            status:0
+        })
+    }
+
+})
+
+app.listen(3001);
 
 let count = 0;
 io.on("connection", (socket) => {
