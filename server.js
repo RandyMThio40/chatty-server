@@ -5,14 +5,14 @@ const { Server } = require("socket.io");
 const app = express();
 const httpServer = createServer(app);
 const cors = require('cors');
-const { default: axios } = require("axios");
-const io = new Server(httpServer, { 
+const axios = require("axios");
+const io = new Server(httpServer,{ 
     cors:{ 
         origin: "http://localhost:3000",
         methods: ["GET","POST"],
         credentials:true,
-
-}});
+    }
+});
 
 app.use(
     cors({
@@ -21,9 +21,15 @@ app.use(
         credentials:true,
     })
 )
-app.use(express.json()); 
+app.use(express.json());
+
+app.get("/",(req,res)=>{
+    res.send("sup bro")
+})
+
 
 const doesImgExist = async (url) => {
+
     try{
         const res = await axios.get(url,{responseType:'arraybuffer'});
         if(res.status == 200){
@@ -33,8 +39,6 @@ const doesImgExist = async (url) => {
     }catch(err){
         console.log("err1: ", err);
     }
-
-
 }
 
 app.post("/findImg",async(req,res)=>{
@@ -52,12 +56,10 @@ app.post("/findImg",async(req,res)=>{
             status:0
         })
     }
-
 })
 
 app.listen(3001);
 
-let count = 0;
 io.on("connection", (socket) => {
     socket.emit("is-connected",true);
     socket.on("join-room",(room)=>{
@@ -69,13 +71,15 @@ io.on("connection", (socket) => {
         socket.leave(room);
     })
     socket.on("sent",(current_room, data)=>{
-        console.log("count: ", count++);
         console.log("socket.id: ",socket.id, "roooms: ", socket.adapter.rooms, " current room",current_room);
 
         socket.to(current_room).emit("receive-message",data)
     })
     socket.on("check-rooms",()=>{
         console.log("socket.id: ",socket.id, "roooms: ", socket.adapter.rooms,"the room: ", socket.rooms);
+    })
+    socket.on("remove-message",(current_room,obj)=>{
+        socket.to(current_room).emit("delete-message",obj);
     })
     socket.on("disconnecting", () => {
         console.log("disconnecting",socket.rooms); // the Set contains at least the socket ID
@@ -90,16 +94,4 @@ io.on("connection", (socket) => {
 httpServer.listen(5000);
 
 
-
-
-// const io = require("socket.io")(5000,{
-//     cors:{ 
-//         origin: "http://localhost:3000",
-//         methods: ["GET","POST"]
-//     }
-// })
-
-// io.on("connection", socket=>{
-   
-// })
 
