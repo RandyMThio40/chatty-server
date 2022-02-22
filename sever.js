@@ -58,7 +58,11 @@ app.post("/findImg",async(req,res)=>{
     }
 })
 
-app.listen(3001);
+app.get("/hello",(req,res)=>{
+    res.send("hello");
+})
+
+// app.listen(3001);
 
 io.on("connection", (socket) => {
     socket.emit("is-connected",true);
@@ -91,7 +95,7 @@ io.on("connection", (socket) => {
     console.log("connected: ",socket.id);
 });
 
-httpServer.listen(5000);
+httpServer.listen( process.env.PORT  || 5000);
 
 
 
