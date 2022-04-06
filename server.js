@@ -8,7 +8,7 @@ const cors = require('cors');
 const axios = require("axios");
 const io = new Server(httpServer,{ 
     cors:{ 
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app"],
         methods: ["GET","POST"],
         credentials:true,
     }
@@ -16,7 +16,7 @@ const io = new Server(httpServer,{
 
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app"],
         methods: ["GET","POST"],
         credentials:true,
     })
