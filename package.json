@@ -2,11 +2,11 @@
   "name": "chat_app_back_end",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node index.js",
     "client": "cd ../chat_app && npm start",
-    "backend": "nodemon server.js",
+    "backend": "nodemon index.js",
     "devstart": "concurrently --kill others \"npm run backend\" \"npm run client\""
   },
   "keywords": [],
