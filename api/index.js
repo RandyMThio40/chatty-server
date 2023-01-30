@@ -23,14 +23,28 @@ app.use(
 )
 app.use(express.json());
 
+const ping = async () => {
+    console.log("ping")
+    try{
+        const res = await axios.get("https://chatty-server-2dv09584c-randymthio40.vercel.app/home");
+        console.log("data: ",res);
+        
+    } catch(err){
+        console.error(err);
+    }
+
+}
+
 app.get("/",(req,res)=>{
-    res.send("hello world");
+
+    ping()
+    res.send({words:"hello world"});
 })
 
 
 app.get("/home",(req,res)=>{
     console.log("home");
-    res.send("it works")
+    res.status(200).send({data:"it works"})
 })
 
 const doesImgExist = async (url) => {
