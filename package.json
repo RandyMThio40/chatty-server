@@ -8,7 +8,7 @@
     "client": "cd ../chat_app && npm start",
     "backend": "nodemon ./api/index.js",
     "devstart": "concurrently --kill others \"npm run backend\" \"npm run client\"",
-    "build": "index.js"
+    "build": "node index.js"
   },
   "keywords": [],
   "author": "",
