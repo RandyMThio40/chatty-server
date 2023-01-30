@@ -2,7 +2,7 @@
   "name": "chat_app_back_end",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./api/index.js",
   "scripts": {
     "start": "node ./api/index.js",
     "client": "cd ../chat_app && npm start",
