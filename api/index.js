@@ -26,7 +26,7 @@ app.use(express.json());
 const ping = async () => {
     console.log("ping")
     try{
-        const res = await axios.get("https://chatty-server-2dv09584c-randymthio40.vercel.app/home");
+        const res = await axios.get("https://chatty-server-seven.vercel.app/");
         console.log("data: ",res);
         
     } catch(err){
