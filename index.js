@@ -5,7 +5,7 @@ const { Server } = require("socket.io");
 const app = express();
 const httpServer = createServer(app);
 const cors = require('cors');
-const axios = require("axios");
+const axios = require("axios")
 const io = new Server(httpServer,{ 
     cors:{ 
         origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app"],
