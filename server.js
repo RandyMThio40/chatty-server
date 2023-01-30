@@ -37,7 +37,7 @@ const doesImgExist = async (url) => {
         }
 
     }catch(err){
-        console.log("err1: ", err);
+        console.log("error: ", err);
     }
 }
 
@@ -62,40 +62,31 @@ app.get("/hello",(req,res)=>{
     res.send("hello");
 })
 
-// app.listen(3001);
-
 io.on("connection", (socket) => {
     socket.emit("is-connected",true);
     socket.on("join-room",(room)=>{
         socket.join(room);
-        console.log("socket.id: ",socket.id);
     })
     socket.on("leave-room",(room)=>{
-        console.log("left room id: ",room);
         socket.leave(room);
     })
     socket.on("sent",(current_room, data)=>{
-        console.log("socket.id: ",socket.id, "roooms: ", socket.adapter.rooms, " current room",current_room);
-
         socket.to(current_room).emit("receive-message",data)
-    })
-    socket.on("check-rooms",()=>{
-        console.log("socket.id: ",socket.id, "roooms: ", socket.adapter.rooms,"the room: ", socket.rooms);
     })
     socket.on("remove-message",(current_room,obj)=>{
         socket.to(current_room).emit("delete-message",obj);
     })
     socket.on("disconnecting", () => {
-        console.log("disconnecting",socket.rooms); // the Set contains at least the socket ID
-      });
-      socket.on("disconnect", () => {
-        // socket.rooms.size === 0
+        console.log("disconnecting"); // the Set contains at least the socket ID
+    });
+    socket.on("disconnect", () => {
         console.log("disconnected")
-      });
-    console.log("connected: ",socket.id);
+    });
 });
 
 httpServer.listen( process.env.PORT  || 5000);
 
+
+module.exports = app;
 
 
