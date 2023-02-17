@@ -8,7 +8,7 @@ const cors = require('cors');
 const axios = require("axios")
 const io = new Server(httpServer,{ 
     cors:{ 
-        origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app","https://chatty-server-cstv7126e-randymthio40.vercel.app/"],
+        origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app"],
         methods: ["GET","POST"],
         credentials:true,
     }
@@ -16,7 +16,7 @@ const io = new Server(httpServer,{
 
 app.use(
     cors({
-        origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app","https://chatty-server-cstv7126e-randymthio40.vercel.app/"],
+        origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app"],
         methods: ["GET","POST"],
         credentials:true,
     })
@@ -26,7 +26,7 @@ app.use(express.json());
 const ping = async () => {
     console.log("ping")
     try{
-        const res = await axios.get("https://chatty-server-seven.vercel.app/");
+        const res = await axios.get("https://glistening-marzipan-f601c4.netlify.app");
         console.log("data: ",res);
         
     } catch(err){
