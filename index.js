@@ -43,7 +43,7 @@ app.get("/",(req,res)=>{
 })
 
 
-app.get("/home",(req,res)=>{
+app.get("/home/",(req,res)=>{
     console.log("home");
     res.status(200).send({data:"it works"})
 })
@@ -61,7 +61,7 @@ const doesImgExist = async (url) => {
     }
 }
 
-app.post("/findImg",async(req,res)=>{
+app.post("/findImg/",async(req,res)=>{
     console.log("req: ", req.body);
     let img_url = req.body?.url
     let data = await doesImgExist(img_url);
