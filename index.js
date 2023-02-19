@@ -11,6 +11,7 @@ const io = new Server(httpServer,{
         origin: ["http://localhost:3000","https://glistening-marzipan-f601c4.netlify.app"],
         methods: ["GET","POST"],
         credentials:true,
+        
     }
 });
 
@@ -27,7 +28,7 @@ const ping = async () => {
     console.log("ping")
     try{
         const res = await axios.get("https://glistening-marzipan-f601c4.netlify.app");
-        console.log("data: ",res);
+        console.log("data: res");
         
     } catch(err){
         console.error(err);
